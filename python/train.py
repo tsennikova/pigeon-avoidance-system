@@ -2,13 +2,13 @@
 
 import config
 from keras.preprocessing.image import ImageDataGenerator
-from keras.applications.resnet50 import ResNet50
+from tensorflow.keras.applications.vgg19 import VGG19
 from keras.models import Model
 from keras.layers import Dense
 from keras.layers import Flatten
 from keras.layers import Dropout
 from keras.optimizers import SGD
-from keras.applications.resnet50 import preprocess_input
+from tensorflow.keras.applications.vgg19 import preprocess_input
 from keras.callbacks import EarlyStopping
 from keras.callbacks import ModelCheckpoint
 from keras.models import load_model
@@ -24,9 +24,8 @@ def define_model(num_of_classes):
     :param num_of_classes: number of classes to predict. type: int
     :return: compiled model
     """
-    # load pretrained ResNet50 with imagenet weights and without last layer
-    # keep the default image size (224, 224, 3)
-    model = ResNet50(weights="imagenet",
+    # load pretrained VGG19 with imagenet weights and without last layer
+    model = VGG19(weights="imagenet",
                      include_top=False,
                      input_shape=(224, 224, 3))
 
@@ -58,7 +57,7 @@ def fit_model(model_1, train, val, epoch, steps, model_path, model_name):
     :param model_name: file name for the model to store
     :return: history of the training. type: history object
     """
-    es = EarlyStopping(monitor='val_loss', mode='min', verbose=1, patience=200)
+    es = EarlyStopping(monitor='accuracy', mode='max', verbose=1, patience=200)
     mc = ModelCheckpoint(model_path+model_name, monitor='val_loss', mode='min', verbose=1, save_best_only=True)
     print(">> Fiting the last layer")
 

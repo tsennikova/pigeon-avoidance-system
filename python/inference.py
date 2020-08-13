@@ -18,7 +18,7 @@ import time
 import os
 
 from keras.models import load_model
-from keras.applications.resnet50 import preprocess_input
+from tensorflow.keras.applications.vgg19 import preprocess_input
 from keras.preprocessing.image import load_img
 from keras.preprocessing.image import img_to_array
 

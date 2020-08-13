@@ -47,13 +47,9 @@ def rotate_motor(rotation_time):
     current_position = 1
     drive_delay_ms = 20
 
-    # define how smooth the rotation should be
-    # must be floats; don't go lower than 2 ; 50 is very slow
-    drive_delay_ms_range = [20.0, 2.0]
-
     # define rotation angle
     # the lower the number, the bigger the angle
-    drive_delay_arc_speed = 0.4
+    drive_delay_arc_speed = 0.6
 
     start_time = datetime.now()
     delta_time = 0
@@ -87,8 +83,7 @@ def rotate_motor(rotation_time):
             # we want to drive the motor nicely and smoothly to impress the pigeons
             drive_speed = sin(delta_time * drive_delay_arc_speed)
 
-            drive_delay_ms = drive_delay_ms_range[0] + abs(drive_speed) * (
-                        drive_delay_ms_range[1] - drive_delay_ms_range[0])
+            drive_delay_ms = 2.0 # 50 is very slow and 2 is the fastest
 
             if drive_speed < 0:
                 drive_delay_ms = drive_delay_ms * -1

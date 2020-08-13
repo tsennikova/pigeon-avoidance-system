@@ -49,7 +49,9 @@ def motion():
     motion detection.
     :return:
     """
-    GPIO.add_event_detect(pin_motion, GPIO.RISING, callback=main_pipeline)
+    GPIO.add_event_detect(pin_motion,
+                          GPIO.RISING,
+                          callback=main_pipeline)
     return
 
 
@@ -76,6 +78,7 @@ def main_pipeline(port):
         rotate_motor(rotation_time)
     if predicted_class == 0:
         logger("INFO: human detected")
+        time.sleep(180)
     if predicted_class == 1:
         logger("INFO: no one detected")
 
